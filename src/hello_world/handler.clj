@@ -3,12 +3,16 @@
             [compojure.core :refer [defroutes GET POST]]
             [compojure.handler :as handler]
             [compojure.route :as route]
+            [clojure.java.io :as io]
             [hello-world.issue :as issue]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]))
 
 (def issues (issue/create-list))
 
 (defroutes app-routes
+  (GET "/" []
+    { :status 200 :body (io/file "resources/public/index.html")})
+
   (GET "/app_status" []
     (pprint (issue/list-issues issues)) 
     "Status OK")
@@ -41,6 +45,7 @@
     (reset! issues @(issue/create-list))
     { :status 202 })
 
+  (route/resources "/public")  
   (route/not-found "Not Found"))
 
 (def app
