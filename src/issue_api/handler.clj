@@ -4,7 +4,7 @@
             [compojure.handler :as handler]
             [compojure.route :as route]
             [clojure.java.io :as io]
-            [issue-api.issue :as issue]
+            [issue-api.issue-service :as issue]
             [ring.middleware.json :refer [wrap-json-body wrap-json-response]]))
 
 (def issues (issue/create-list))
