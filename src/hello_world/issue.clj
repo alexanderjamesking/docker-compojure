@@ -10,12 +10,12 @@
   (map (fn [issue] @(:ref issue)) @issues))
 
 ; creates an issue, wraps in atom, add to list
-(defn create [issues properties] 
-  (let [issue { :id (:id properties (uuid)) 
-                :title (:title properties "default title")
-                :description (:description properties "")
-                :version (long 1) }]
-    (swap! issues conj { :id (:id issue) :ref (atom issue) })
+(defn create [issues properties]
+  (let [issue {:id (:id properties (uuid))
+               :title (:title properties "default title")
+               :description (:description properties "")
+               :version (long 1)}]
+    (swap! issues conj {:id (:id issue) :ref (atom issue)})
     issue))
 
 (defn find-by-id [issues id]
@@ -28,11 +28,9 @@
 (defn- amend-property [issues id property-key new-value version]
   (let [issue-ref (find-ref-by-id issues id)
         version (long version)
-        projected-current-state (merge @issue-ref { :version version} ) 
-        updates { 
-          property-key new-value 
-          :version (inc version) 
-        }
+        projected-current-state (merge @issue-ref {:version version})
+        updates {property-key new-value
+                 :version (inc version)}
         proposed-state (merge projected-current-state updates)
         result (compare-and-set! issue-ref projected-current-state proposed-state)]
     @issue-ref))

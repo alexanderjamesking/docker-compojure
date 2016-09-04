@@ -8,7 +8,8 @@
                  [ring/ring-json "0.4.0"]
                  [ring/ring-defaults "0.2.1"]
                  ]
-  :plugins [[lein-ring "0.9.7"]]
+  :plugins [[lein-ring "0.9.7"]
+            [lein-cljfmt "0.5.3"]]
   :ring {:handler hello-world.handler/app}
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]

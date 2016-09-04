@@ -1,6 +1,6 @@
 (ns hello-world.test.handler
   (:use clojure.test
-        ring.mock.request  
+        ring.mock.request
         hello-world.handler)
   (:require [clojure.data.json :as json]))
 
@@ -28,7 +28,7 @@
 (deftest test-app
   (testing "main route"
     (let [response (app (request :get "/app_status"))]
-      
+
       (is (= (:status response) 200))
       (is (= (:body response) "Status OK"))))
 
