@@ -1,15 +1,4 @@
-sudo: required
-
 language: clojure
-
-services:
-  - docker
 
 script:
 - lein test
-
-after_success:
-- ./build.sh
-
-
-

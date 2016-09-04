@@ -14,3 +14,9 @@ Run:
 lein ring server
 lein ring server-headless
 ```
+
+Code formatter:
+```
+lein cljfmt check
+lein cljfmt fix
+```
