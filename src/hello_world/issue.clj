@@ -11,10 +11,10 @@
 
 ; creates an issue, wraps in atom, add to list
 (defn create [issues properties] 
-  (let [issue { :id (uuid)
+  (let [issue { :id (:id properties (uuid)) 
                 :title (:title properties "default title")
                 :description (:description properties "")
-                :version 1 }]
+                :version (long 1) }]
     (swap! issues conj { :id (:id issue) :ref (atom issue) })
     issue))
 
@@ -27,6 +27,7 @@
 ; amend issue - with optimistic locking
 (defn- amend-property [issues id property-key new-value version]
   (let [issue-ref (find-ref-by-id issues id)
+        version (long version)
         projected-current-state (merge @issue-ref { :version version} ) 
         updates { 
           property-key new-value 

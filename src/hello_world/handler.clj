@@ -9,7 +9,9 @@
 (def issues (issue/create-list))
 
 (defroutes app-routes
-  (GET "/app_status" [] "Status OK")
+  (GET "/app_status" []
+    (pprint (issue/list-issues issues)) 
+    "Status OK")
 
   (GET "/issue" [] 
     { :status 200 :body (issue/list-issues issues) })
@@ -26,14 +28,18 @@
   (POST "/issue/:id/amend/title" request
     (let [id (-> request :params :id)
           body (-> request :body)
-          issue (issue/amend-title issues id (:title body) 1)]
+          issue (issue/amend-title issues id (:title body) (:version body))]
       { :status 200 :body issue }))
 
   (POST "/issue/:id/amend/description" request
     (let [id (-> request :params :id)
           body (-> request :body)
-          issue (issue/amend-description issues id (:desription body) 1)]
+          issue (issue/amend-description issues id (:desription body) (:version body))]
       { :status 200 :body issue }))
+
+  (POST "/reset" []
+    (reset! issues @(issue/create-list))
+    { :status 202 })
 
   (route/not-found "Not Found"))
 
