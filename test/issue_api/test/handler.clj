@@ -1,7 +1,7 @@
-(ns hello-world.test.handler
+(ns issue-api.test.handler
   (:use clojure.test
         ring.mock.request
-        hello-world.handler)
+        issue-api.handler)
   (:require [clojure.data.json :as json]))
 
 ; (defn response-equals [expected response]

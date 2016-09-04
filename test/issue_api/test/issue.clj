@@ -1,6 +1,6 @@
-(ns hello-world.test.issue
+(ns issue-api.test.issue
   (:use clojure.test)
-  (:require [hello-world.issue :as issue]))
+  (:require [issue-api.issue :as issue]))
 
 (deftest test-app
   (testing "create an issue"

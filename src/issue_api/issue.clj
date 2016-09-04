@@ -1,4 +1,4 @@
-(ns hello-world.issue)
+(ns issue-api.issue)
 
 (defn- uuid [] (str (java.util.UUID/randomUUID)))
 
